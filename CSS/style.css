@@ -4,5 +4,44 @@ body {
 .credits {
 	font-size: 0.7rem;
 	word-spacing: 2px;
-	tab-size: 8;
+}
+#container {
+	position: relative;
+	top: 20px;
+}
+#index {
+	width: 240px;
+	height: 100%;
+	margin-left: 80px;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 20px;
+}
+#index a {
+	display: block;
+	text-decoration: none;
+	color: black;
+	margin-bottom: 10px;
+	padding: 10px;
+	border-radius: 10px;
+}
+#index a:hover {
+	background-color: #0080F6;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	color: #eee;
+} 
+#content {
+	margin: auto;
+	padding: 0 30px;
+	height: 100%;
+	width: 750px;
+}
+#content div {
+	background-color: #f8f9fa;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	border-radius: 10px;
+}
+.float-end div {
+	padding: 20px 30px 10px;
+	margin-bottom: 20px;
 }
