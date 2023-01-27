@@ -5,6 +5,18 @@ body {
 	font-size: 0.7rem;
 	word-spacing: 2px;
 }
+.login {
+	position: absolute;
+	right: 0;
+}
+.loginbtn {
+	position: absolute;
+	top: 12px;
+	right: 85px;
+}
+.btn {
+	margin: 2px auto 2px;
+}
 #container {
 	position: relative;
 	top: 20px;
@@ -12,7 +24,7 @@ body {
 #index {
 	width: 240px;
 	height: 100%;
-	margin-left: 80px;
+	margin-left: 50px;
 	position: -webkit-sticky;
 	position: sticky;
 	top: 20px;
@@ -29,7 +41,7 @@ body {
 	background-color: #0080F6;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 	color: #eee;
-} 
+}
 #content {
 	margin: auto;
 	padding: 0 30px;
@@ -41,7 +53,15 @@ body {
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 	border-radius: 10px;
 }
+#content div p {
+	text-align: justify;
+	font-size: small;
+	margin-top: 15px;
+}
 .float-end div {
 	padding: 20px 30px 10px;
 	margin-bottom: 20px;
+}
+option {
+	padding-top: 30px !important;
 }
