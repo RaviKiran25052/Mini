@@ -1,0 +1,49 @@
+
+body {
+	padding: 0;
+	margin: 0;
+	background-image: url('AB.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	background-attachment: fixed;
+}
+.navbar {
+	background-color: #ffffff62;
+}
+h1{
+	text-align:center;
+	font-family: 'Gill Sans MT', sans-serif;
+	margin-top:60px;
+	text-shadow: 6px 6px 6px #000000;
+}
+.card-body h6, .btn {
+	align-self: center;
+	width: fit-content;
+}
+.card {
+	width: 190px;
+	height: 260px;
+}
+.mydiv{
+	position: relative;
+	top: 100px;
+	width: fit-content;
+	border-radius: 20px;
+	align-items: center;
+	justify-content: center;
+}
+input {
+	border-radius: 25px;
+	border: 1px solid #999;
+	padding-left: 50px;
+	margin-bottom: 20px;
+	width: 250px;
+	height: 45px;
+}
+input[type=text] {
+	background: url(un.png) no-repeat scroll 10px 10px;background-color:rgb(238, 238, 238);
+}
+input[type=password] {
+	background: url(pw.png) no-repeat scroll 10px 10px;background-color:rgb(238, 238, 238);
+}
