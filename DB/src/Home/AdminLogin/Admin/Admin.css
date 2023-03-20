@@ -1,0 +1,28 @@
+.adcard {
+	margin: auto;
+	width: 240px;
+	height: 280px !important;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.adcard img {
+	width: 110px;
+	margin: 40px auto 10px;
+}
+.form-control {
+	border: solid 1px black;
+}
+.input-group button {
+	margin: 0px !important;
+}
+.addStd {
+	padding: 40px;
+	max-width: 800px;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+	border-radius: 20px;
+}
+/* .addStd input , .addStd select{
+	width: 300px;
+} */
+.block {
+	display: block !important;
+}
