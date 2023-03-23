@@ -1,54 +1,35 @@
-const { google } = require('googleapis');
-const { OAuth2 } = google.auth;
+const {google} = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
 
-// Set up the OAuth2 client
 const oauth2Client = new OAuth2(
   '975957019030-4mplnb39c37hivonfplc9pd91u1bgmbf.apps.googleusercontent.com',
   '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',
-  'http://localhost'
+  'http://localhost/3000'
 );
 
-// Set the access token to use for API requests
 oauth2Client.setCredentials({
-  access_token: 'ya29.a0AVvZVsroKscKchmzTKgBKeA1Zwxk2kz-IOk3_SRmpjAWvuE2pkQ9A6MfbSSQ1LGwALwJsryhBS0nFRlgpB5FLdeO9MyeVAZy7fr45UHreKcLIoxFR-IH5Xv-KHPSR2Hh2_5odGQ9HQ5qVNQca6vs5ezXp2GvaCgYKAaoSARASFQGbdwaIpFMJVOBxa2iUqHydemXKbA0163',
-  refresh_token: '1//06B8c4d7eEyfZCgYIARAAGAYSNwF-L9IrASVlw7IAnytgvDCu-cAKI76m8Nl2x2ZkGidRR7XlZTHctxStPOw68o0ZCsJyB3OzbHg'
+  access_token: 'ya29.a0AVvZVsqrnPHTUjs16LK_3RyNciAEKGNVJpWDTzqWedsRVOThF3c3gTUuIZauLp8f9sTUdPVSA_hfsYpCBKplop-f78Y6g908geFAF-0jDla5kCs-B1Y7L6XVrit6-eAm4iG2cUYR2GyhAfsR2XJfgO4VcSZwaCgYKASwSARASFQGbdwaI5tQ5RPkKsOgN1G1Q9AQzrA0163',
+  refresh_token: '1//0gD5uVCjzYOdYCgYIARAAGBASNwF-L9IrMz-xsTC9dr8BKa4Mjx_FNFgYJ7E7j4Ke-iQmIK-JeruNs894sTCTZ2P40AmgKD77Q7Q',
 });
 
-// Set up the Gmail API client
-const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
-
-// Define the email address you want to verify
-const unknownEmail = 'ravivarma25052@gmail.com';
-
-// Make a request to the Gmail API to get the message metadata for the inbox of the user
-gmail.users.messages.list({
-  userId: 'me',
-  q: `to:${unknownEmail}`
-}, (err, res) => {
-  if (err) return console.error(err);
-  
-  // If the request is successful and there are messages in the inbox with the given email address,
-  // the API will return message metadata, including the email address of the sender.
-  // You can compare this email address with the unknown email address to verify it.
-  const messages = res.data.messages;
-  if (messages.length > 0) {
-    const message = messages[0];
-    gmail.users.messages.get({
-      userId: 'me',
-      id: message.id
-    }, (err, res) => {
-      if (err) return console.error(err);
-      
-      const headers = res.data.payload.headers;
-      const sender = headers.find(header => header.name === 'From').value;
-      
-      if (sender === unknownEmail) {
-        console.log(`The email address ${unknownEmail} is verified!`);
-      } else {
-        console.log(`The email address ${unknownEmail} is not verified.`);
-      }
-    });
-  } else {
-    console.log(`There are no messages in the inbox with the email address ${unknownEmail}.`);
-  }
+const gmail = google.gmail({
+  version: 'v1',
+  auth: oauth2Client
 });
+async function searchForEmail(email) {
+  const res = await gmail.users.messages.list({
+    userId: 'me',
+    q: `to:${email} OR cc:${email} OR bcc:${email}`
+  });
+  return (res.data.messages && res.data.messages.length > 0);
+}
+
+async function checkEmailExistence(email) {
+  const res = await searchForEmail(email);
+  console.log(email+"\t: "+res);
+}
+
+checkEmailExistence('sampathsaicharan59@gmail.com');
+checkEmailExistence('sastaguvvu25@gmail.com');
+checkEmailExistence('sahitya3066@gmail.com');
+checkEmailExistence('dfasfawsgrb@gmail.com');

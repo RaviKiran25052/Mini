@@ -1,38 +1,22 @@
-const xlsx = require('xlsx');
-const nodemailer = require('nodemailer');
-const workbook = xlsx.readFile('emails.xlsx');
-const worksheet = workbook.Sheets['Sheet1'];
-const emailList = [];
-const range = xlsx.utils.decode_range(worksheet['!ref']);
-for (let i = range.s.r + 1; i <= range.e.r; i++) {
-  const cell = worksheet[xlsx.utils.encode_cell({ r: i, c: 0 })];
-  if (cell && cell.t === 's') {
-    emailList.push(cell.v.trim());
+const XLSX = require('xlsx');
+
+const workbook = XLSX.readFile('emails.xlsx');
+const sheetName = 'Sheet1'; // Change this to the name of the sheet you want to read
+const sheet = workbook.Sheets[sheetName];
+
+// Get the range of cells in the first column
+const range = XLSX.utils.decode_range(sheet['!ref']);
+range.s.c = 0; // Set the starting column to 0
+range.e.c = 2; // Set the ending column to 0
+
+// Extract the data from the first column
+const data = [];
+for (let row = range.s.r+1; row <= range.e.r; row++) {
+  const cellAddress = XLSX.utils.encode_cell({ r: row, c: range.s.c });
+  const cellValue = sheet[cellAddress]?.v;
+  if (cellValue !== undefined) {
+    data.push(cellValue);
   }
 }
-async function verifyEmail(email) {
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: 'ravivarma25052@gmail.com',
-      pass: 'osmbordgxarlcjsc'
-    }
-  });
 
-  try {
-    const info = await transporter.verify();
-    console.log(`Server is ready to take our messages: ${info}`);
-  } catch (error) {
-    console.error(error);
-  }
-
-  const result = await transporter.verify();
-  if (result) {
-    console.log(`Email ${email} is verified`, result);
-  } else {
-    console.log(`Email ${email} is not verified`, error);
-  }
-}
-emailList.forEach(email => verifyEmail(email));
+console.log(data);
