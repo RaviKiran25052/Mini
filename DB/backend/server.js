@@ -69,4 +69,29 @@ app.delete('/users/delete/:userId',async(req, res) => {
     console.log('Error:', error);
     res.status(500).json({ message: 'Error deleting user' });
   }
-});  
+}); 
+
+app.get('/users/find/:userId',async(req, res) => {
+  const userId = req.params.userId;
+  const password = req.query.password;
+
+  try {
+    const user = await User.findOne({ regno:userId });
+    if (user) {
+      // Verify password
+      if (password==user.password) {
+        console.log('Password is valid:', user);
+        res.status(200).json({ user });
+      } else {
+        console.log('Password is invalid');
+        res.status(401).json({ error: 'Unauthorized' });
+      }
+    } else {
+      console.log('User does not exist');
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (err) {
+    console.error('Failed to find user:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}); 
