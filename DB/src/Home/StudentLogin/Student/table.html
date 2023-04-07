@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sheet Data</title>
+    <meta charset="utf-8" />
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 5px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="table-container"></div>
+	 <script>
+		async function displayTable() {
+			const sheetData = await getTableData("S4: Student Certifications", 'Roll Number','18331A0530');
+			document.getElementById("table-container").innerHTML = sheetData.tableHtml;
+		}
+		displayTable();
+
+	 </script>
+  </body>
+</html>

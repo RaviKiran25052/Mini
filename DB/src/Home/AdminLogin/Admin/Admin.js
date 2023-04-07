@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Axios from 'axios';
+import './Admin.css';
 import { AuthContext } from '../../../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import "jquery-ui-dist/jquery-ui";
@@ -25,7 +26,6 @@ const Admin = () => {
   });
 
   const [deleteRegno, setDeleteRegno] = useState("");
-
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
@@ -88,7 +88,7 @@ const Admin = () => {
 
   async function handleDelete(e) {
     e.preventDefault();
-    if (window.confirm("Do you want to delete student " + deleteRegno) == true) {
+    if (window.confirm("Do you want to delete student " + deleteRegno) === true) {
       try {
         const response = await Axios.delete(`http://localhost:3001/users/delete/${deleteRegno}`);
         console.log(response.data);

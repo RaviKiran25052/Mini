@@ -1,3 +1,8 @@
+body {
+	font-family: 'Montserrat', sans-serif, 'Sacramento', cursive;
+	scroll-behavior: smooth;
+	background-color: #fff;
+}
 .adcard {
 	margin: auto;
 	width: 240px;
