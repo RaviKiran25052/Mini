@@ -3,19 +3,21 @@ import './Student.css';
 import { AuthContext } from '../../../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import "jquery-ui-dist/jquery-ui";
-import { data } from "../StudentLogin";
+import useFormData from '../FormData';
+import { useLocation } from 'react-router-dom';
+// import ssv from './ssv';
+
 
 const Student = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
+   const userData = location.state?.userData;
 	const { isAuthenticated } = useContext(AuthContext);
 	useEffect(() => {
 	  if (!isAuthenticated) {
 		 navigate("/studentlogin");
 	  }
 	}, [isAuthenticated, navigate]);
-	console.log(data);
-	const student = data["user"];
-	console.log(student["regno"])
 	return (
 		 <div>
 			<nav className="navbar shadow mb-5 p-3 bg-light">
@@ -28,9 +30,9 @@ const Student = () => {
 					<img className="rounded-circle my-auto dropdown-toggle" src="https://divedigital.id/wp-content/uploads/2022/07/11-Blank-Profile-Picture-Black.jpg" alt="stdpic" width="50px" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-bs-haspopup="true" aria-bs-expanded="false" />
 					<div className="dropdown-menu dropdown-menu-end shadow p-2 bg-white rounded" aria-labelledby="dropdownMenuLink">
 					  <div className="d-flex flex-column credits p-2">
-						 <div><span className="text-primary fw-bold">Reg.No:</span> {student["regno"]}</div>
-						 <div><span className="text-primary fw-bold">Name:</span> {student['name']}</div>
-						 <div><span className="text-primary fw-bold">Branch:</span> {student['branch']} 	<span className="text-primary fw-bold d-inline-block">Sem:</span>	III/IV I SEM</div>
+						 <div><span className="text-primary fw-bold">Reg.No:</span>jhgvjh</div>
+						 <div><span className="text-primary fw-bold">Name:</span> rk</div>
+						 <div><span className="text-primary fw-bold">Branch:</span> ufyfyfv<span className="text-primary fw-bold d-inline-block">Sem:</span>	III/IV I SEM</div>
 						 <div className="d-flex flex-row mt-2">
 							<button type="button" onclick="window.location.href='Partha/profile.html'" className="btn btn-primary btn-sm me-2">Profile</button>
 							<button type="button" onclick="window.location.href='Partha/login.html'" className="btn btn-outline-primary btn-sm ms-2">Logout</button>
@@ -42,9 +44,9 @@ const Student = () => {
 					<div className="d-flex flex-row">
 					  <img src="https://divedigital.id/wp-content/uploads/2022/07/11-Blank-Profile-Picture-Black.jpg" alt="stdpic" width="50px" className="rounded-circle my-auto" />
 					  <div className="d-flex flex-column ms-2 lh-1 credits">
-						 <div className="p-1"><span className="text-primary fw-bold">Reg.No:</span> {student["regno"]}</div>
-						 <div className="p-1"><span className="text-primary fw-bold">Name:</span> {student['name']}</div>
-						 <div className="p-1"><span className="text-primary fw-bold">Branch:</span> {student['branch']} 	<span className="text-primary fw-bold">Sem:</span>	III/IV I SEM</div>
+						 <div className="p-1"><span className="text-primary fw-bold">Reg.No:</span>{userData["regno"]}</div>
+						 <div className="p-1"><span className="text-primary fw-bold">Name:</span>{userData["name"]}</div>
+						 <div className="p-1"><span className="text-primary fw-bold">Branch:</span>{userData["branch"]}<span className="text-primary fw-bold">Sem:</span>	III/IV I SEM</div>
 					  </div>
 					  <div className="d-flex flex-row ms-2">
 						 <button type="button" onclick="window.location.href='Partha/profile.html'" className="btn btn-primary btn-sm my-auto">Profile</button>
