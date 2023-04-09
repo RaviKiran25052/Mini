@@ -1,12 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Student.css';
 import { AuthContext } from '../../../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import "jquery-ui-dist/jquery-ui";
-import useFormData from '../FormData';
 import { useLocation } from 'react-router-dom';
-// import ssv from './ssv';
-
 
 const Student = () => {
 	const navigate = useNavigate();
@@ -18,6 +15,17 @@ const Student = () => {
 		 navigate("/studentlogin");
 	  }
 	}, [isAuthenticated, navigate]);
+	
+	const [sidepanelWidth, setSidepanelWidth] = useState(0);
+
+  function openNav() {
+    setSidepanelWidth(300);
+  }
+
+  function closeNav() {
+    setSidepanelWidth(0);
+  }
+
 	return (
 		 <div>
 			<nav className="navbar shadow mb-5 p-3 bg-light">
@@ -27,15 +35,15 @@ const Student = () => {
 					<b>MVGR</b>
 				 </a>
 				 <div className="dropdown d-sm-block d-md-none loginbtn">
-					<img className="rounded-circle my-auto dropdown-toggle" src="https://divedigital.id/wp-content/uploads/2022/07/11-Blank-Profile-Picture-Black.jpg" alt="stdpic" width="50px" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-bs-haspopup="true" aria-bs-expanded="false" />
+					<img className="rounded-circle my-auto dropdown-toggle" src="https://divedigital.id/wp-content/uploads/2022/07/11-Blank-Profile-Picture-Black.jpg" alt="stdpic" width="50px" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"/>
 					<div className="dropdown-menu dropdown-menu-end shadow p-2 bg-white rounded" aria-labelledby="dropdownMenuLink">
 					  <div className="d-flex flex-column credits p-2">
-						 <div><span className="text-primary fw-bold">Reg.No:</span>jhgvjh</div>
-						 <div><span className="text-primary fw-bold">Name:</span> rk</div>
-						 <div><span className="text-primary fw-bold">Branch:</span> ufyfyfv<span className="text-primary fw-bold d-inline-block">Sem:</span>	III/IV I SEM</div>
+						 <div><span className="text-primary fw-bold">Reg.No:</span>{userData["regno"]}</div>
+						 <div><span className="text-primary fw-bold">Name:</span> {userData["name"]}</div>
+						 <div><span className="text-primary fw-bold">Branch:</span> {userData["branch"].toUpperCase()} <span className="text-primary fw-bold d-inline-block">Sem:</span>	III/IV I SEM</div>
 						 <div className="d-flex flex-row mt-2">
-							<button type="button" onclick="window.location.href='Partha/profile.html'" className="btn btn-primary btn-sm me-2">Profile</button>
-							<button type="button" onclick="window.location.href='Partha/login.html'" className="btn btn-outline-primary btn-sm ms-2">Logout</button>
+							<button type="button" className="btn btn-primary btn-sm me-2">Profile</button>
+							<button type="button" className="btn btn-outline-primary btn-sm ms-2">Logout</button>
 						 </div>
 					  </div>
 					</div>
@@ -45,17 +53,17 @@ const Student = () => {
 					  <img src="https://divedigital.id/wp-content/uploads/2022/07/11-Blank-Profile-Picture-Black.jpg" alt="stdpic" width="50px" className="rounded-circle my-auto" />
 					  <div className="d-flex flex-column ms-2 lh-1 credits">
 						 <div className="p-1"><span className="text-primary fw-bold">Reg.No:</span>{userData["regno"]}</div>
-						 <div className="p-1"><span className="text-primary fw-bold">Name:</span>{userData["name"]}</div>
-						 <div className="p-1"><span className="text-primary fw-bold">Branch:</span>{userData["branch"]}<span className="text-primary fw-bold">Sem:</span>	III/IV I SEM</div>
+						 <div className="p-1"><span className="text-primary fw-bold">Name:</span> {userData["name"]}</div>
+						 <div className="p-1"><span className="text-primary fw-bold">Branch:</span> {userData["branch"].toUpperCase()} <span className="text-primary fw-bold">Sem:</span>	III/IV I SEM</div>
 					  </div>
 					  <div className="d-flex flex-row ms-2">
-						 <button type="button" onclick="window.location.href='Partha/profile.html'" className="btn btn-primary btn-sm my-auto">Profile</button>
-						 <button type="button" onclick="window.location.href='Partha/login.html'" className="btn btn-outline-primary btn-sm  my-auto mx-2">Logout</button>
+						 <button type="button" className="btn btn-primary btn-sm my-auto">Profile</button>
+						 <button type="button" className="btn btn-outline-primary btn-sm  my-auto mx-2">Logout</button>
 					  </div>
 					</div>
 				 </div>
-				 <div id="mySidepanel" className="sidepanel shadow mr-5 bg-light d-sm-block d-md-none">
-					<a href="javascript:void(0)" className="closebtn" onclick="closeNav()">×</a>
+				 <div style={{width:`${sidepanelWidth}px`}} className="sidepanel shadow mr-5 bg-light d-sm-block d-md-none">
+					<a href="javascript:void(0)" className="closebtn fs-4 mt-3" onClick={closeNav}>x</a>
 					<h3 className="ms-4">Certificates</h3>
 					<a className="d-flex justify-content-between align-items-start" id="S1">
 					  S1 : Journal Publication<span className="badge bg-primary rounded-pill">2</span>
@@ -110,7 +118,7 @@ const Student = () => {
 					</a>
 					<br /><br /><br /><br /><br /><br />
 				 </div>
-				 <button className="openbtn d-sm-block d-md-none" onclick="openNav()">☰</button>
+				 <button className="openbtn d-sm-block d-md-none" onClick={openNav}>☰</button>
 			  </div>
 			</nav>
 			<div id="container" className="d-flex flex-row">
@@ -337,5 +345,5 @@ const Student = () => {
 		 </div>
 	);
 }
-	
+
 export default Student;

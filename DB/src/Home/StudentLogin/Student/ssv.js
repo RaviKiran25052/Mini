@@ -1,5 +1,4 @@
 const { google } = require('googleapis');
-const fs = require('fs');
 
 const auth = new google.auth.GoogleAuth({
 	keyFile: 'key.json',
@@ -12,7 +11,7 @@ const auth = new google.auth.GoogleAuth({
 
 const sheets = google.sheets({ version: 'v4', auth });
 
-const S1 = "Sl: Student Journal Pub";
+const S1 = "S1: Student Journal Pub";
 const S2 = "S2: Student Conference Publication";
 const S3 = "S3: Student Internships";
 const S4 = "S4: Student Certifications";
@@ -31,19 +30,20 @@ const S16 = "S16: Students Social Service Programs";
 const S17 = "S17: Students Leadership & Volunteering Activities";
 const S18 = "S18: Student Co-curricular Activities & Extra curricular Activities Participation";
 
-async function getSheetData() {
-  const response = await sheets.spreadsheets.values.get({ 
-    // spreadsheetId: '1grxSY6s1Qf2G9xLGz1zkWGtjXAlvlk7XNAol0dmq5TY',
-    // range: 'Sheet1!A:E',
+const S = [S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,S17,S18];
+let res = {};
+
+async function getSheetData(N) {
+  try{
+  const response = await sheets.spreadsheets.values.get({
     spreadsheetId: '1EYRfu4z0mw_j6wW3Y1eoq2K0G99pvaX0P6axRAu2wlI',
-    range: S6+'!A:Z',
+    range: N+'!A:Z',
   });
 
   const rows = response.data.values;
   const count = response.data.values.length;
   const headers = rows[0];
   const data = rows.slice(1);
-
   const result = data.map((row) =>
     row.reduce(
       (obj, value, i) => ({
@@ -63,14 +63,24 @@ async function getSheetData() {
     }
     return 0;
   });
-  const jsonData = JSON.stringify(result, null, 2);
-
-  fs.writeFileSync('output.json', jsonData);
-
-  // console.log(`\n${count} data entries written to file.`);
-  // console.log(jsonData);
   var regno = result.map(obj => obj[col]);
-  console.log(regno);
+    var len = regno.length;
+    res[N] = len;
+  }
+catch{
+    res[N] = 0;
+}
 }
 
-getSheetData().catch((err) => console.error(err));
+function ssv() {
+	var i;
+  for(i=0;i<18;i++){
+    getSheetData(S[i]).catch((err) => console.error(err));
+  }
+}
+ssv();
+async function call() {
+  await Promise.all(S.map(getSheetData));
+  console.log(res);
+}
+call();
